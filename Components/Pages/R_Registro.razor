@@ -19,7 +19,7 @@
 					<label>Prioridad ID:</label>
 					<div class="input-group mb-3">
 						<InputNumber @bind-Value="prioridades.PrioridadID" class="form-control" aria-describedby="BotonBuscar"/>
-                        <button @onclick="Buscar" class="btn btn-outline-primary" type="button" id="BotonBuscar"><i class="oi oi-magnifying-glass" /></button>
+                        <button @onclick="Buscar" class="btn btn-outline-primary" type="button" id="BotonBuscar"><i class="bi bi-search" /></button>
 					</div>
 				</div>
                 
@@ -41,9 +41,9 @@
 
             <div class="card-footer d-flex justify-content-center">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-outline-primary" @onclick="Nuevo">Nuevo <i class="oi oi-file" /></button>
-                    <button type="submit" class="btn btn-outline-success">Guardar <i class="oi oi-document" /></button>
-                    <button type="button" class="btn btn-outline-danger" @onclick="Eliminar">Eliminar <i class="oi oi-trash" /></button>
+                    <button type="button" class="btn btn-outline-primary" @onclick="Nuevo">Nuevo <i class="bi bi-file-earmark-plus" /></button>
+                    <button type="submit" class="btn btn-outline-success">Guardar <i class="bi bi-floppy2-fill" /></button>
+                    <button type="button" class="btn btn-outline-danger" @onclick="Eliminar">Eliminar <i class="bi bi-trash3" /></button>
                 </div>
             </div>
     	</div>
@@ -58,6 +58,7 @@
     public Prioridades prioridades { set; get; } = new Prioridades();
 
     public string Mensaje { get; set; } = string.Empty;
+
     bool _existe = false;
 
     public async Task Buscar()
@@ -71,23 +72,24 @@
 
     public bool Validar()
     {
-        _existe = (prioridadesBLL.GetPrioridades(p => p.Descripción!.ToLower() == prioridades.Descripción!.ToLower()
-        && p.PrioridadID != prioridades.PrioridadID).Any());
+        _existe = prioridadesBLL.GetPrioridades(p => p.Descripción!.ToLower() == prioridades.Descripción!.ToLower()
+        && p.PrioridadID != prioridades.PrioridadID).Any();
         return _existe;
 
     }
 
-    public async Task Guardar()
+    void Guardar()
     {
-        var guardo = prioridadesBLL.Save(prioridades);
         if (Validar())
         {
-            Mensaje = "Se guardo correctamente.";
+            Mensaje = "No Se Guardo Correctamente Por Descripción Repetida";
             return;
         }
-        else
-            Mensaje = "No se pudo guardar la Descripción.";
-            this.Nuevo();
+        if(prioridadesBLL.Save(this.prioridades))
+        {
+            Mensaje = "Se Guardo Correctamente";
+            return;
+        }
     }
 
     public void Nuevo()
