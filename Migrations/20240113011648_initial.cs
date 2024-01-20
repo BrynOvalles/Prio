@@ -11,7 +11,7 @@ namespace Prio.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Prioridades",
+                name: "CLientes",
                 columns: table => new
                 {
                     PrioridadID = table.Column<int>(type: "INTEGER", nullable: false)
@@ -29,7 +29,7 @@ namespace Prio.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Prioridades");
+                name: "CLientes");
         }
     }
 }

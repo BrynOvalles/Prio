@@ -35,7 +35,7 @@ namespace Prio.Migrations
 
                     b.HasKey("PrioridadID");
 
-                    b.ToTable("Prioridades");
+                    b.ToTable("CLientes");
                 });
 #pragma warning restore 612, 618
         }

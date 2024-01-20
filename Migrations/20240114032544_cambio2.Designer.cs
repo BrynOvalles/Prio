@@ -19,7 +19,7 @@ namespace Prio.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.1");
 
-            modelBuilder.Entity("Prio.Models.Prioridades", b =>
+            modelBuilder.Entity("Prio.Models.CLientes", b =>
                 {
                     b.Property<int>("PrioridadID")
                         .ValueGeneratedOnAdd()
@@ -34,7 +34,7 @@ namespace Prio.Migrations
 
                     b.HasKey("PrioridadID");
 
-                    b.ToTable("Prioridades");
+                    b.ToTable("CLientes");
                 });
 #pragma warning restore 612, 618
         }
