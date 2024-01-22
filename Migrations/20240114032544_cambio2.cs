@@ -12,7 +12,7 @@ namespace Prio.Migrations
         {
             migrationBuilder.AlterColumn<int>(
                 name: "DiasCompromiso",
-                table: "CLientes",
+                table: "Prioridades",
                 type: "INTEGER",
                 nullable: false,
                 oldClrType: typeof(string),
@@ -24,7 +24,7 @@ namespace Prio.Migrations
         {
             migrationBuilder.AlterColumn<string>(
                 name: "DiasCompromiso",
-                table: "CLientes",
+                table: "Prioridades",
                 type: "TEXT",
                 nullable: false,
                 oldClrType: typeof(int),
