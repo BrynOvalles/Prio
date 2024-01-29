@@ -8,5 +8,7 @@ namespace Prio.DAL
         public Contexto(DbContextOptions<Contexto> options) : base(options) { }
         public DbSet<Clientes> Clientes { get; set; }
         public DbSet<Prioridades> Prioridades { get; set; }
+        public DbSet<Sistema> Sistema{ get; set; }
+        public DbSet<Tickets> Tickets { get; set; }
     }
 }
