@@ -5,19 +5,19 @@ namespace Prio.Models;
 public class Tickets
 {
     [Key]
-    public int TicketID { get; set; }
+    public int TicketId { get; set; }
     [Required(ErrorMessage = "Ingresar Fecha.")]
     [DataType(DataType.Date)]
-    public DateTime Fecha { get; set; } = DateTime.Today;
+    public DateTime Fecha { get; set; } = DateTime.Now;
     [ForeignKey("Clientes")]
     [Required(ErrorMessage = " Campo {0} es requerido")]
-    public int ClienteID { get; set; }
+    public int ClienteId { get; set; }
     [ForeignKey("Sistema")]
     [Required(ErrorMessage = " Campo {0} es requerido")]
-    public int SistemaID { get; set; }
+    public int SistemaId { get; set; }
     [ForeignKey("Prioridades")]
     [Required(ErrorMessage = " Campo {0} es requerido")]
-    public int PrioridadID { get; set; }
+    public int PrioridadId { get; set; }
     [Required(ErrorMessage = " Campo {0} es requerido")]
     public string? Solicitante { get; set; }
     [Required(ErrorMessage = " Campo {0} es requerido")]

@@ -7,9 +7,9 @@ namespace Prio.Models
     public class Prioridades
     {
         [Key]
-        public int PrioridadID { get; set; }
-        [Required(ErrorMessage = "El campo {0} es Requerido")]
-        public string? Descripción { get; set; }
+        public int PrioridadId { get; set; }
+        [Required(ErrorMessage = "El campo Descripcion es Requerido")]
+        public string? Descripcion { get; set; }
         [Required(ErrorMessage = "El campo {0} es Requerido")]
         public int DiasCompromiso { get; set; }
     }
