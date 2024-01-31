@@ -14,15 +14,15 @@ public class SistemaServices
         _contexto = contexto;
     }
 
-    public async Task<bool> Existe(int sistemaID)
+    public async Task<bool> Existe(int sistemaId)
     {
         return await _contexto.Sistema
-            .AnyAsync(s => s.SistemaID == sistemaID);
+            .AnyAsync(s => s.SistemaId == sistemaId);
     }
 
     public async Task<bool> Guardar(Sistema sistema)
     {
-        if (!await Existe(sistema.SistemaID))
+        if (!await Existe(sistema.SistemaId))
             return await Insertar(sistema);
         else
             return await Modificar(sistema);
@@ -42,15 +42,15 @@ public class SistemaServices
     public async Task<bool> Eliminar(Sistema sistema)
     {
         var Eliminar = await _contexto.Sistema
-            .Where(s => s.SistemaID == sistema.SistemaID)
+            .Where(s => s.SistemaId == sistema.SistemaId)
             .ExecuteDeleteAsync();
         return Eliminar > 0;
     }
-    public async Task<Sistema?> BuscarID(int sistemaID)
+    public async Task<Sistema?> BuscarId(int sistemaId)
     {
         return await _contexto.Sistema
             .AsNoTracking()
-            .FirstOrDefaultAsync(s => s.SistemaID == sistemaID);
+            .FirstOrDefaultAsync(s => s.SistemaId == sistemaId);
     }
     public async Task<Sistema?> BuscarNombre(string nombre)
     {
@@ -58,11 +58,11 @@ public class SistemaServices
             .AsNoTracking()
             .FirstOrDefaultAsync(s => s.Nombre == nombre);
     }
-    public async Task<List<Sistema>> Listar(Expression<Func<Sistema, bool>> Criterio)
+    public List<Sistema> Listar(Expression<Func<Sistema, bool>> Criterio)
     {
-        return await _contexto.Sistema
+        return _contexto.Sistema
             .Where(Criterio)
             .AsNoTracking()
-            .ToListAsync();
+            .ToList();
     }
 }

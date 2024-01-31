@@ -14,23 +14,27 @@ public class PrioridadServices
     }
     public bool Save(Prioridades prioridades)
     {
-        if (prioridades.PrioridadID == 0)
+        if (prioridades.PrioridadId == 0)
             _contexto.Prioridades.Add(prioridades);
         else
             _contexto.Entry(prioridades).State = EntityState.Modified;
         return _contexto.SaveChanges() > 0;
     }
-    public async Task<Prioridades?> FindAsync(int PrioridadID)
+    public async Task<Prioridades?> FindAsync(int PrioridadId)
     {
-        return await _contexto.Prioridades.FindAsync(PrioridadID);
+        return await _contexto.Prioridades.FindAsync(PrioridadId);
     }
-
-    public bool Delete(int PrioridadID)
+	public async Task<Prioridades?> SearchDescripcion(string descripcion)
+	{
+		return await _contexto.Prioridades
+			.AsNoTracking()
+			.FirstOrDefaultAsync(p => p.Descripcion.ToLower() == descripcion.ToLower());
+	}
+	public bool Delete(int PrioridadId)
     {
-        _contexto.Prioridades.Remove(_contexto.Prioridades.Find(PrioridadID));
+        _contexto.Prioridades.Remove(_contexto.Prioridades.Find(PrioridadId));
         return _contexto.SaveChanges() > 0;
     }
-
     public List<Prioridades> GetPrioridades(Expression<Func<Prioridades, bool>> Criterio)
     {
         return _contexto.Prioridades.Where(Criterio).AsNoTracking().ToList();
