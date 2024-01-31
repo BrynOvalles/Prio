@@ -5,13 +5,13 @@ namespace Prio.Models;
 public class Clientes
 {
 	[Key]
-	public int ClienteID { get; set; }
+	public int ClienteId { get; set; }
 	[Required(ErrorMessage = "El campo {0} es Requerido.")]
 	public string? Nombre { get; set; }
 	[Required(ErrorMessage = "El campo {0} es requerido.")]
 	[RegularExpression("^[0-9]+$", ErrorMessage = "El Teléfono solo puede contener dígitos.")]
 	[StringLength(maximumLength: 10, MinimumLength = 10, ErrorMessage = "La longitud debe ser de 10 dígitos")]
-	public string? Teléfono { get; set; }
+	public string? Telefono { get; set; }
 	[Required(ErrorMessage = "El campo {0} es requerido.")]
 	[RegularExpression("^[0-9]+$", ErrorMessage = "El Celular solo puede contener dígitos.")]
 	[StringLength(maximumLength: 10, MinimumLength = 10, ErrorMessage = "La longitud debe ser de 10 dígitos")]

@@ -63,7 +63,7 @@ namespace Prio.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Descripción")
+                    b.Property<string>("Descripcion")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

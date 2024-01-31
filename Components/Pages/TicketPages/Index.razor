@@ -1,0 +1,61 @@
+﻿@page "/Tickets"
+@using System.Linq.Expressions
+@inject TicketServices ticketServices
+
+<PageTitle>Tickets</PageTitle>
+<div class="container">
+	<div class="card shadow-lg">
+		<div class="card-header">
+			<h3><b>Tickets</b></h3>
+			<div class="row">
+				<div class="col-2">
+					<a href="/CrearTicket">Crear Ticket</a>
+				</div>
+				<div class="col-2">
+					<a href="/DetallesTickets">Detalles</a>
+				</div>
+			</div>
+		</div>
+		<div class="card-body">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Fecha</th>
+						<th>ID Cliente</th>
+						<th>ID Sistema</th>
+						<th>ID Prioridad</th>
+						<th>Solicitado Por</th>
+						<th>Asunto</th>
+						<th>Descripción</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var ticket in listaTickets)
+					{
+						<tr>
+							<td>@ticket.TicketId</td>
+							<td>@ticket.Fecha.ToShortDateString()</td>
+							<td>@ticket.ClienteId</td>
+							<td>@ticket.SistemaId</td>
+							<td>@ticket.PrioridadId</td>
+							<td>@ticket.Solicitante</td>
+							<td>@ticket.Asunto</td>
+							<td>@ticket.Descripcion</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+@code {
+	public List<Tickets> listaTickets = new List<Tickets>();
+
+	protected override void OnInitialized()
+	{
+		Expression<Func<Tickets, bool>> criterio = ticket => ticket.TicketId > 0;
+		listaTickets = ticketServices.Listar(criterio);
+	}
+}

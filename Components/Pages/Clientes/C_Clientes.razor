@@ -1,5 +1,5 @@
 ﻿@page "/CClientes"
-@inject ClienteServices clientesBLL
+@inject ClienteServices clientesServices
 
 <PageTitle>Consulta Clientes</PageTitle>
 <h1>Consulta de Clientes</h1>
@@ -19,9 +19,9 @@
             @foreach (var item in Lista_Clientes)
 			{
             <tr>
-                <td>@item.ClienteID</td>
+                <td>@item.ClienteId</td>
                 <td>@item.Nombre</td>
-                <td>@item.Teléfono</td>
+                <td>@item.Telefono</td>
                 <td>@item.Celular</td>
                 <td>@item.RNC</td>
                 <td>@item.Email</td>
@@ -38,6 +38,6 @@
 
     protected override void OnInitialized()
     {
-        Lista_Clientes = clientesBLL.Listar(l => true);
+        Lista_Clientes = clientesServices.Listar(l => true);
     }
 }

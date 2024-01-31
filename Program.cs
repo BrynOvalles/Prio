@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Prio.BLL;
 using Prio.Components;
 using Prio.DAL;
+using Prio.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +12,10 @@ builder.Services.AddRazorComponents()
 
 var ConStr = builder.Configuration.GetConnectionString("ConStr");
 builder.Services.AddDbContextFactory<Contexto>(options => options.UseSqlite(ConStr));
-builder.Services.AddScoped<PrioridadesBLL>();
-builder.Services.AddScoped<ClientesBLL>();
+builder.Services.AddScoped<PrioridadServices>();
+builder.Services.AddScoped<ClienteServices>();
+builder.Services.AddScoped<SistemaServices>();
+builder.Services.AddScoped<TicketServices>();
 
 var app = builder.Build();
 
