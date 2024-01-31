@@ -1,0 +1,51 @@
+﻿@page "/DetallesSistemas"
+@using System.Linq.Expressions
+@using Prio.Services
+@inject SistemaServices sistemaServices;
+
+<PageTitle>Detalles Sistemas</PageTitle>
+<div class="container">
+	<div class="card shadow-lg">
+		<div class="card-header">
+			<h3><b>Detalles de Sistemas</b></h3>
+			<a href="/CrearSistema">Crear</a>
+		</div>
+		<div class="card-body">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Nombre</th>
+					</tr>
+				</thead>
+				<thBody>
+					@foreach (var sistema in listaSistemas)
+					{
+						<tr>
+							<td>@sistema.SistemaId</td>
+							<td>@sistema.Nombre</td>
+							<td>
+								<a href="/EditarSistema/@sistema.SistemaId"><i class="bi bi-pencil-square"></i></a>
+								<a href="/EliminarSistema/@sistema.SistemaId"><i class="bi bi-trash2"></i></a>
+							</td>
+						</tr>
+					}
+				</thBody>
+			</table>
+		</div>
+		<div class="card-footer">
+			<p><b>Total de Sistemas:</b> @listaSistemas.Count</p>
+		</div>
+	</div>
+</div>
+
+@code {
+	public Sistema prioridad { get; set; } = new Sistema();
+	public List<Sistema> listaSistemas = new List<Sistema>();
+
+	protected override void OnInitialized()
+	{
+		Expression<Func<Sistema, bool>> criterio = sistema => sistema.SistemaId > 0;
+		listaSistemas = sistemaServices.Listar(criterio);
+	}
+}
