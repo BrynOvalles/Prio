@@ -1,6 +1,6 @@
 ﻿@page "/RClientes"
 @rendermode InteractiveServer
-@inject ClienteServices clientesBLL
+@inject ClienteServices clienteServices
 
 <PageTitle>Registro de Clientes</PageTitle>
 <EditForm Model="clientes" OnValidSubmit="Guardar">
@@ -14,7 +14,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
 					<label>Cliente ID:</label>
 					<div class="input-group mb-3" >
-						<InputNumber @bind-Value="clientes.ClienteID" class="form-control" aria-describedby="BotonBuscar"/>
+						<InputNumber @bind-Value="clientes.ClienteId" class="form-control" aria-describedby="BotonBuscar"/>
 						<button @onclick="Buscar" class="btn btn-outline-primary" type="button" id="BotonBuscar"><i class="bi bi-search" /></button>
 					</div>
 				</div>
@@ -30,8 +30,8 @@
 				</div>
 				<div class="mb-3">
 					<label class="form-label" for="Teléfono:"> Teléfono: </label>
-					<InputText @bind-Value="clientes.Teléfono" class="form-control" placeholder="8095773744" />
-					<ValidationMessage For="@(() => clientes.Teléfono)" />
+					<InputText @bind-Value="clientes.Telefono" class="form-control" placeholder="8095773744" />
+					<ValidationMessage For="@(() => clientes.Telefono)" />
 				</div>
 				<div class="mb-3">
 					<label class="form-label" for="Celular:"> Celular: </label>
@@ -70,13 +70,13 @@
 	
 	public bool Validar()
 	{
-		clienteExiste = (clientesBLL.Listar(c =>
+		clienteExiste = (clienteServices.Listar(c =>
 			c.Nombre!.ToLower() == clientes.Nombre!.ToLower()
 			|| c.RNC == clientes.RNC).Any());
 		return clienteExiste;
 	}
 	public async Task Buscar()
-	{	var encontrado = await clientesBLL.Buscar(clientes.ClienteID);
+	{	var encontrado = await clienteServices.Buscar(clientes.ClienteId);
 		if (encontrado != null){
 			clientes = encontrado; 
 			Mensaje = "Cliente Encontrado";
@@ -86,7 +86,7 @@
 	}
 	public async Task Guardar()
 	{
-		if (!Validar() && await clientesBLL.Guardar(clientes))
+		if (!Validar() && await clienteServices.Guardar(clientes))
 		{
 			Nuevo();
 			Mensaje = "Se guardó correctamente el cliente.";
@@ -104,7 +104,7 @@
 	}
 	public async Task Eliminar()
 	{
-		var eliminado = await clientesBLL.Eliminar(clientes.ClienteID);
+		var eliminado = await clienteServices.Eliminar(clientes);
 		if (eliminado)
 		{
 			Nuevo();

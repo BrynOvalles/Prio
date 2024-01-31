@@ -15,15 +15,15 @@
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
                     <label>Prioridad ID:</label>
                     <div class="input-group mb-3">
-                        <InputNumber @bind-Value="prioridades.PrioridadID" class="form-control" aria-describedby="BotonBuscar" />
+                        <InputNumber @bind-Value="prioridades.PrioridadId" class="form-control" aria-describedby="BotonBuscar" />
                         <button @onclick="Buscar" class="btn btn-outline-primary" type="button" id="BotonBuscar"><i class="bi bi-search" /></button>
                     </div>
                 </div>
                 @*Descripción*@
                 <div class="mb-3">
                     <label class="form-label" for="Descripción:"> Descripción: </label>
-                    <InputText @bind-Value="prioridades.Descripción" class="form-control" />
-                    <ValidationMessage For="@(() => prioridades.Descripción)" />
+                    <InputText @bind-Value="prioridades.Descripcion" class="form-control" />
+                    <ValidationMessage For="@(() => prioridades.Descripcion)" />
                 </div>
                 @*Registro de Dias*@
                 <div class="col-xs-3 col-sm-3 col-md-4 col-lg-3 col-xl-2">
@@ -52,7 +52,7 @@
     bool _existe = false;
     public async Task Buscar()
     {
-        var encontrado = await prioridadesServices.FindAsync(prioridades.PrioridadID);
+        var encontrado = await prioridadesServices.FindAsync(prioridades.PrioridadId);
         if (encontrado != null)
         {
             prioridades = encontrado;
@@ -63,15 +63,15 @@
     }
     public bool Validar()
     {
-        _existe = prioridadesServices.GetPrioridades(p => p.Descripción!.ToLower() == prioridades.Descripción!.ToLower()
-        && p.PrioridadID != prioridades.PrioridadID).Any();
+        _existe = prioridadesServices.GetPrioridades(p => p.Descripcion!.ToLower() == prioridades.Descripcion!.ToLower()
+        && p.PrioridadId != prioridades.PrioridadId).Any();
         return _existe;
     }
     void Guardar()
     {
         if (Validar())
         {
-            Mensaje = "No Se Guardo Correctamente Por Descripción Repetida";
+            Mensaje = "No Se Guardo Correctamente Por Descripcion Repetida";
             return;
         }
         if (prioridadesServices.Save(this.prioridades))
@@ -87,7 +87,7 @@
     }
     public async Task Eliminar()
     {
-        var eliminado = prioridadesServices.Delete(prioridades.PrioridadID);
+        var eliminado = prioridadesServices.Delete(prioridades.PrioridadId);
         if (eliminado)
         {
             Nuevo();
