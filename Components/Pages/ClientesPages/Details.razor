@@ -1,0 +1,60 @@
+﻿@page "/DetallesClientes"
+@using System.Linq.Expressions
+@inject ClienteServices clienteServices
+
+<PageTitle>Detalles de Clientes</PageTitle>
+<div class="container">
+	<div class="card shadow-lg">
+		<div class="card-header">
+			<h3><b>Detalles de Clientes</b></h3>
+			<a href="/CrearCliente">Crear</a>
+		</div>
+		<div class="card-body">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Nombre</th>
+						<th>RNC</th>
+						<th>Tel&eacute;fono</th>
+						<th>Celular</th>
+						<th>Email</th>
+						<th>Direcci&oacute;n</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var cliente in listaClientes)
+					{
+						<tr>
+							<td>@cliente.ClienteId</td>
+							<td>@cliente.Nombre</td>
+							<td>@cliente.RNC</td>
+							<td>@cliente.Telefono</td>
+							<td>@cliente.Celular</td>
+							<td>@cliente.Email</td>
+							<td>@cliente.Dirección</td>
+							<td>
+								<a href="/EditarCliente/@cliente.ClienteId"><i class="bi bi-pencil-square"></i></a>
+								<a href="/EliminarCliente/@cliente.ClienteId"><i class="bi bi-trash2"></i></a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+		<div class="card-footer">
+			<p><b>Total de Clientes:</b> @listaClientes.Count</p>
+		</div>
+	</div>
+</div>
+
+@code {
+	public Clientes cliente { get; set; } = new Clientes();
+	public List<Clientes> listaClientes = new List<Clientes>();
+
+	protected override void OnInitialized()
+	{
+		Expression<Func<Clientes, bool>> criterio = cliente => cliente.ClienteId > 0;
+		listaClientes = clienteServices.Listar(criterio);
+	}
+}
